@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NameGen v0.1</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    body { font-family: 'Segoe UI',Roboto,Arial,sans-serif; background: #f7fcfc; color: #2a3a3a; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+    h1 { margin-bottom: 0.2em; }
+    .combo { font-size: 2.5em; font-weight: bold; background: #e8f0fe; color: #143651; border-radius: 10px; padding: 0.4em 1.2em; box-shadow: 0 2px 8px #0001; margin: 1em 0; }
+    button { padding: 0.7em 2em; font-size: 1.1em; border: none; border-radius: 5px; background: #1a7b8c; color: #fff; cursor: pointer; margin-top: 1em; box-shadow: 0 1px 3px #0002;}
+    button:hover { background: #14606c; }
+    .lists { margin-top: 2.5em; background: #fff; padding: 1.2em; border-radius: 10px; box-shadow: 0 1px 4px #0001 }
+    summary { cursor: pointer; font-weight: bold; margin-bottom: 0.5em; }
+    ul { columns: 2; -webkit-columns:2; -moz-columns:2; font-size: 1em; margin: 0.5em 0 0 0;}
+    li { list-style: disc inside; }
+    @media (max-width:600px) { .combo{font-size:1.3em;} .lists{padding:0.5em;} ul{columns:1;} }
+  </style>
+</head>
+<body>
+  <h1>NameGen v0.1</h1>
+  <div style="max-width:580px;text-align:center;margin-bottom:1em">Your next operation name will be:</div>
+  <div class="combo" id="result">Loading...</div>
+  <button onclick="generateCombo()">New Combination</button>
+  <details class="lists">
+    <summary>View Adjective &amp; Dinosaur Lists</summary>
+    <strong>Adjectives</strong>
+    <ul id="adjList"></ul>
+    <strong>Dinosaurs</strong>
+    <ul id="dinoList"></ul>
+  </details>
+  <script>
+    const adjectives = [
+      "Adaptable","Ambitious","Analytical","Attentive","Authentic","Balanced","Brave","Caring","Collaborative","Committed",
+      "Compassionate","Confident","Conscientious","Consistent","Cooperative","Courteous","Creative","Decisive","Dedicated","Dependable",
+      "Determined","Diligent","Disciplined","Dynamic","Efficient","Empathetic","Energetic","Enthusiastic","Ethical","Flexible",
+      "Focused","Generous","Honest","Imaginative","Independent","Innovative","Insightful","Integrity-driven","Meticulous","Motivated",
+      "Observant","Open-minded","Organized","Patient","Perceptive","Persistent","Practical","Proactive","Resourceful","Strategic"
+    ];
+
+    const dinosaurs = [
+      "Allosaurus","Ankylosaurus","Apatosaurus","Baryonyx","Brachiosaurus","Camarasaurus","Carnotaurus","Coelophysis","Compsognathus","Corythosaurus",
+      "Deinonychus","Dilophosaurus","Diplodocus","Dromaeosaurus","Dryosaurus","Edmontosaurus","Euoplocephalus","Gallimimus","Giganotosaurus","Hadrosaurus",
+      "Iguanodon","Kentrosaurus","Lambeosaurus","Lesothosaurus","Maiasaura","Megalosaurus","Muttaburrasaurus","Ornitholestes","Ouranosaurus","Oviraptor",
+      "Pachycephalosaurus","Parasaurolophus","Plateosaurus","Protoceratops","Pterosaur","Saurolophus","Spinosaurus","Stegosaurus","Styracosaurus","Suchomimus",
+      "Supersaurus","Therizinosaurus","Torosaurus","Triceratops","Troodon","Tsintaosaurus","Tyrannosaurus","Ultrasaurus","Velociraptor","Zuniceratops"
+    ];
+
+    function pickRandom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+    function generateCombo() {
+      const adj = pickRandom(adjectives);
+      const dino = pickRandom(dinosaurs);
+      document.getElementById('result').textContent = `${adj} ${dino}`;
+    }
+    // Fill the adjective and dino lists
+    function fillLists() {
+      document.getElementById('adjList').innerHTML = adjectives.map(adj => `<li>${adj}</li>`).join("");
+      document.getElementById('dinoList').innerHTML = dinosaurs.map(dino => `<li>${dino}</li>`).join("");
+    }
+    // On load
+    fillLists();
+    generateCombo();
+  </script>
+</body>
+</html>
